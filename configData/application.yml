@@ -1,8 +1,18 @@
 # Define the Eureka server that handles service registration
+#eureka:
+#  instance:
+#      hostname: service-discovery
+#      port: 8761
+#  client:
+#    serviceUrl:
+#      defaultZone: http://service-discovery.local.pcfdev.io/eureka/
+
+spring:
+  profiles: cloud
 eureka:
   instance:
-      hostname: service-discovery
-      port: 8761
+    nonSecurePort: 80
+    hostname: ${vcap.application.uris[0]}
   client:
-    serviceUrl:
-      defaultZone: http://service-discovery.local.pcfdev.io/eureka/
+    service-url:
+      defaultZone: ${vcap.services.eureka.credentials.url}
